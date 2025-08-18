@@ -1,60 +1,123 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
-  IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
-  IonItem, IonLabel, IonInput, IonButton, IonGrid, IonRow,
-  IonCol, IonCard, IonCardContent, IonIcon
-} from '@ionic/react';
-import { eye, eyeOff } from 'ionicons/icons';
-import { Controller } from 'react-hook-form';
-import { useLoginForm } from './loginLogic';
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCard,
+  IonCardContent,
+  IonText,
+  IonInput,
+  IonIcon,
+} from "@ionic/react";
+import { eye, eyeOff } from "ionicons/icons";
+import { Controller } from "react-hook-form";
+import { useLoginForm } from "./loginLogic";
+import "./LoginPage.css";
 
 const LoginPage: React.FC = () => {
-  const { showPassword, setShowPassword, form, onSubmit } = useLoginForm();
-  const { control, handleSubmit, formState: { errors, touchedFields } } = form;
+  const { form, onSubmit } = useLoginForm();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = form;
+
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar style={{ '--background': '#fff' }}>
-          <IonTitle style={{ fontWeight: 'bold', color: '#444' }}>Login</IonTitle>
+        <IonToolbar className="login-page-header">
+          <IonTitle className="login-page-title">Login</IonTitle>
         </IonToolbar>
       </IonHeader>
 
-      <IonContent fullscreen style={{ '--background': '#f4f5f8' }}>
+      <IonContent fullscreen className="login-page-container">
         <IonGrid>
-          <IonRow className="ion-justify-content-center ion-align-items-center">
+          <IonRow
+            className="ion-justify-content-center ion-align-items-center"
+            style={{ minHeight: "100vh" }}
+          >
             <IonCol size="12" sizeSm="8" sizeMd="6" sizeLg="4">
-              <IonCard style={{ borderRadius: '16px', padding: '1.5rem', margin: '0 auto' }}>
+              <IonCard className="login-card">
                 <IonCardContent>
-                  <h1 style={{ textAlign: 'center', marginBottom: '1rem' }}>Faça login</h1>
+                  <h1 className="login-title">Faça login</h1>
+                  <br></br>
                   <form onSubmit={handleSubmit(onSubmit)}>
+                    {/* Campo de Email */}
                     <Controller
                       name="email"
                       control={control}
                       render={({ field }) => (
-                        <IonItem lines="none" style={{ marginBottom: '1rem', border: `1px solid ${errors.email && touchedFields.email ? 'red' : '#f0f0f0'}` }}>
-                          <IonLabel position="floating">E-mail</IonLabel>
-                          <IonInput {...field} type="email" />
-                        </IonItem>
+                        <div className="input-field-wrapper">
+                          <IonInput
+                            type="email"
+                            label="E-mail"
+                            labelPlacement="floating"
+                            fill="outline"
+                            placeholder="Digite seu e-mail"
+                            value={field.value}
+                            onIonInput={(e) => field.onChange(e.detail.value!)}
+                            onIonBlur={field.onBlur}
+                            className={errors.email ? "input-outline-error" : ""}
+                          />
+                          {errors.email && (
+                            <IonText color="danger" className="error-text">
+                              {errors.email.message}
+                            </IonText>
+                          )}
+                        </div>
                       )}
                     />
+
+                    {/* Campo de Senha com toggle */}
                     <Controller
                       name="password"
                       control={control}
                       render={({ field }) => (
-                        <IonItem lines="none" style={{ marginBottom: '1rem', border: `1px solid ${errors.password && touchedFields.password ? 'red' : '#f0f0f0'}` }}>
-                          <IonLabel position="floating">Senha</IonLabel>
-                          <IonInput {...field} type={showPassword ? 'text' : 'password'} />
-                          <IonIcon icon={showPassword ? eyeOff : eye} onClick={() => setShowPassword(!showPassword)} slot="end" />
-                        </IonItem>
+                        <div className="input-field-wrapper password-wrapper">
+                          <IonInput
+                            type={showPassword ? "text" : "password"}
+                            label="Senha"
+                            labelPlacement="floating"
+                            fill="outline"
+                            placeholder="Digite sua senha"
+                            value={field.value}
+                            onIonInput={(e) => field.onChange(e.detail.value!)}
+                            onIonBlur={field.onBlur}
+                            className={errors.password ? "input-outline-error" : ""}
+                          />
+                          <IonIcon
+                            icon={showPassword ? eyeOff : eye}
+                            className="password-toggle-icon"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                          />
+                          {errors.password && (
+                            <IonText color="danger" className="error-text">
+                              {errors.password.message}
+                            </IonText>
+                          )}
+                        </div>
                       )}
                     />
-                    <IonButton expand="block" type="submit">Entrar</IonButton>
+                   
+                    <IonButton expand="block" type="submit" className="login-button">
+                      Entrar
+                    </IonButton>
                   </form>
-
-                  <p style={{ textAlign: 'center', marginTop: '1rem' }}>
-                    Não tem conta? <Link to="/register">Crie sua conta</Link>
+                  <br></br>
+                  <p className="register-link-text">
+                    Não tem conta?{" "}
+                    <Link to="/register" className="register-link">
+                      Crie sua conta
+                    </Link>
                   </p>
                 </IonCardContent>
               </IonCard>
