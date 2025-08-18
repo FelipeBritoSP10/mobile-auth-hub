@@ -68,7 +68,7 @@
 
 .register-link-text {
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   font-size: 0.85rem;
   color: #666;
 }
@@ -76,4 +76,24 @@
 .register-link {
   font-weight: bold;
   color: #5c5cff;
+  margin-top: 30px;
+}
+
+.forgot-password-text {
+  margin-top: 2px;
+  margin-bottom: 0px;
+  text-align: right;
+  font-size: 0.85rem;
+}
+.forgot-password-link {
+  color: #3880ff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  margin-top: 4px;
+  position: relative;
+  top: -29px;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
 }

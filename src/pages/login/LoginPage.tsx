@@ -66,7 +66,9 @@ const LoginPage: React.FC = () => {
                             value={field.value}
                             onIonInput={(e) => field.onChange(e.detail.value!)}
                             onIonBlur={field.onBlur}
-                            className={errors.email ? "input-outline-error" : ""}
+                            className={
+                              errors.email ? "input-outline-error" : ""
+                            }
                           />
                           {errors.email && (
                             <IonText color="danger" className="error-text">
@@ -92,7 +94,9 @@ const LoginPage: React.FC = () => {
                             value={field.value}
                             onIonInput={(e) => field.onChange(e.detail.value!)}
                             onIonBlur={field.onBlur}
-                            className={errors.password ? "input-outline-error" : ""}
+                            className={
+                              errors.password ? "input-outline-error" : ""
+                            }
                           />
                           <IonIcon
                             icon={showPassword ? eyeOff : eye}
@@ -107,8 +111,19 @@ const LoginPage: React.FC = () => {
                         </div>
                       )}
                     />
-                   
-                    <IonButton expand="block" type="submit" className="login-button">
+                    <p className="forgot-password-text">
+                      <Link
+                        to="/forgot-password"
+                        className="forgot-password-link"
+                      >
+                        Esqueceu sua senha?
+                      </Link>
+                    </p>
+                    <IonButton
+                      expand="block"
+                      type="submit"
+                      className="login-button"
+                    >
                       Entrar
                     </IonButton>
                   </form>
