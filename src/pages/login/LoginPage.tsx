@@ -113,7 +113,7 @@ const LoginPage: React.FC = () => {
                     />
                     <p className="forgot-password-text">
                       <Link
-                        to="/forgot-password"
+                        to="/ForgotPassword"
                         className="forgot-password-link"
                       >
                         Esqueceu sua senha?
