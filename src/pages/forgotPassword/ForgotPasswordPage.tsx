@@ -16,22 +16,32 @@ import {
   IonLoading,
   IonToast,
 } from "@ionic/react";
+import "./ForgotPasswordPage.css";
 
 const ForgotPasswordPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [toastColor, setToastColor] = useState<"success" | "danger">("success");
 
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!email.trim()) {
+      setToastMessage("Por favor, insira seu e-mail!");
+      setToastColor("danger");
+      setShowToast(true);
+      return;
+    }
+
     setIsLoading(true);
 
-    // Simulação de chamada de API
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     setIsLoading(false);
     setToastMessage("Um link de recuperação foi enviado para o seu e-mail!");
+    setToastColor("success");
     setShowToast(true);
     setEmail("");
   };
@@ -40,7 +50,7 @@ const ForgotPasswordPage: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar className="login-page-header">
-          <IonTitle className="login-page-title">Recuperar Senha</IonTitle>
+          <IonTitle className="login-page-title">Recuperação de senha</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="ion-padding login-page-container">
@@ -50,7 +60,7 @@ const ForgotPasswordPage: React.FC = () => {
               <IonCard className="login-card">
                 <IonCardContent>
                   <h1 className="login-title ion-no-margin">Recuperar senha</h1>
-                  <br></br>
+                  <br />
                   <form onSubmit={handleForgotPassword}>
                     <div className="input-field-wrapper">
                       <IonInput
@@ -61,7 +71,6 @@ const ForgotPasswordPage: React.FC = () => {
                         placeholder="Digite seu e-mail"
                         value={email}
                         onIonInput={(e) => setEmail(e.detail.value!)}
-                        required
                       />
                     </div>
                     <IonButton
@@ -74,18 +83,19 @@ const ForgotPasswordPage: React.FC = () => {
                     </IonButton>
                   </form>
                   <p className="link-text">
-                    <Link to="/login">Voltar para o Login</Link>
+                    <Link to="/login">Voltar para o login</Link>
                   </p>
                 </IonCardContent>
               </IonCard>
             </IonCol>
           </IonRow>
         </IonGrid>
+
         <IonLoading isOpen={isLoading} message={"Enviando..."} />
         <IonToast
           isOpen={showToast}
           message={toastMessage}
-          color="success"
+          color={toastColor}
           duration={3000}
           onDidDismiss={() => setShowToast(false)}
         />
