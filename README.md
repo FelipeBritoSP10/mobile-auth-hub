@@ -94,6 +94,16 @@ Exemplos de classes:
 
 Essas classes são compartilhadas entre as páginas para manter a identidade visual.
 
+### 📱 Recursos Extras do App
+
+🌐 Compatível com web, Android e iOS via Capacitor.
+
+🔒 Segurança com campos de senha ocultos e validação mínima.
+
+🎨 Design responsivo para diferentes tamanhos de tela.
+
+⚡ Componentes reutilizáveis para acelerar o desenvolvimento de novas telas.
+
 ### 🤝 Contribuição
 
 Contribuições são sempre bem-vindas! Siga estas etapas para contribuir:
